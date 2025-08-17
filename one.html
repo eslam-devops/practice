@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تمبلتس اللغة الإنجليزية</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4a6fa5;
+            --secondary-color: #166088;
+            --accent-color: #4fc3f7;
+            --background-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-color: #333;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --border-radius: 10px;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #6c9bc1;
+            --secondary-color: #8cb3d9;
+            --accent-color: #4fc3f7;
+            --background-color: #1a1a2e;
+            --card-bg: #16213e;
+            --text-color: #e0e0e0;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background-color);
+            margin: 0;
+            padding: 0;
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1, h2, h3 {
+            color: var(--secondary-color);
+            text-align: center;
+        }
+
+        .theme-toggle {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .toggle-btn {
+            background-color: var(--card-bg);
+            border: none;
+            border-radius: 50px;
+            padding: 8px 15px;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        .toggle-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .phrase-section {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .phrase-section:hover {
+            transform: translateY(-5px);
+        }
+
+        .phrase-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .phrase-section h2 i {
+            color: var(--accent-color);
+        }
+
+        .phrase-card {
+            border: 1px solid #eee;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 15px;
+            background-color: var(--card-bg);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .phrase-card:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-3px);
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .template {
+            font-weight: 600;
+            color: var(--secondary-color);
+            font-size: 1.1em;
+            margin-bottom: 8px;
+            text-align: right;
+        }
+
+        .translation {
+            color: #aaa;
+            font-style: italic;
+            margin-bottom: 8px;
+            text-align: right;
+        }
+
+        .example {
+            color: var(--accent-color);
+            font-weight: 500;
+            text-align: right;
+        }
+
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        #search {
+            width: 100%;
+            max-width: 500px;
+            padding: 12px 20px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            box-shadow: var(--shadow);
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        #search::placeholder {
+            color: #aaa;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            direction: rtl;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: right;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        tr:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .phrase-section {
+                padding: 15px;
+            }
+
+            .phrase-card {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fas fa-book-open"></i> تمبلتس اللغة الإنجليزية</h1>
+
+        <div class="theme-toggle">
+            <button class="toggle-btn" id="themeToggle">
+                <i class="fas fa-moon"></i> الوضع المظلم
+            </button>
+        </div>
+
+        <div class="search-container">
+            <input type="text" id="search" placeholder="ابحث عن جمل أو كلمات...">
+        </div>
+
+        <div class="phrase-section">
+            <h2>🏆 10 تعبيرات أمريكية قوية</h2>
+            <p style="text-align: center; margin-bottom: 20px;">تمام يا زعيم 😎🔥<br>هنا 10 تعبيرات أمريكية قوية، وكل تعبير مع 4 أمثلة مختلفة، يعني هتطلع معاك 50 جملة جاهزة للحفظ والتطبيق فورًا.</p>
+
+            <!-- I’m all about... -->
+            <div class="phrase-card">
+                <div class="template">1️⃣ I’m all about...</div>
+                <div class="translation">كل اهتمامي بـ / أنا بحب جدًا</div>
+                <ul>
+                    <li><strong>I’m all about trying new foods.</strong> 🍣</li>
+                    <li><strong>I’m all about helping others.</strong> 🤝</li>
+                    <li><strong>I’m all about staying healthy.</strong> 🥗</li>
+                    <li><strong>I’m all about learning new things.</strong> 📚</li>
+                </ul>
+            </div>
+
+            <!-- I can’t get enough of... -->
+            <div class="phrase-card">
+                <div class="template">2️⃣ I can’t get enough of...</div>
+                <div class="translation">مش بشبع من / مدمن على</div>
+                <ul>
+                    <li><strong>I can’t get enough of coffee.</strong> ☕</li>
+                    <li><strong>I can’t get enough of traveling.</strong> ✈️</li>
+                    <li><strong>I can’t get enough of your jokes.</strong> 😂</li>
+                    <li><strong>I can’t get enough of music.</strong> 🎵</li>
+                </ul>
+            </div>
+
+            <!-- I’m the kind of person who... -->
+            <div class="phrase-card">
+                <div class="template">3️⃣ I’m the kind of person who...</div>
+                <div class="translation">أنا من النوع اللي</div>
+                <ul>
+                    <li><strong>I’m the kind of person who wakes up early.</strong> ⏰</li>
+                    <li><strong>I’m the kind of person who plans ahead.</strong> 📝</li>
+                    <li><strong>I’m the kind of person who loves surprises.</strong> 🎁</li>
+                    <li><strong>I’m the kind of person who asks a lot of questions.</strong> ❓</li>
+                </ul>
+            </div>
+
+            <!-- If I had to choose, I’d go for... -->
+            <div class="phrase-card">
+                <div class="template">4️⃣ If I had to choose, I’d go for...</div>
+                <div class="translation">لو لازم أختار، هاختار</div>
+                <ul>
+                    <li><strong>If I had to choose, I’d go for pizza.</strong> 🍕</li>
+                    <li><strong>If I had to choose, I’d go for the beach.</strong> 🏖️</li>
+                    <li><strong>If I had to choose, I’d go for staying home.</strong> 🏠</li>
+                    <li><strong>If I had to choose, I’d go for a quiet night.</strong> 🌙</li>
+                </ul>
+            </div>
+
+            <!-- What I love most is... -->
+            <div class="phrase-card">
+                <div class="template">5️⃣ What I love most is...</div>
+                <div class="translation">أكثر شيء أحبه هو</div>
+                <ul>
+                    <li><strong>What I love most is spending time with friends.</strong> 👫</li>
+                    <li><strong>What I love most is the smell of fresh bread.</strong> 🍞</li>
+                    <li><strong>What I love most is watching the sunset.</strong> 🌅</li>
+                    <li><strong>What I love most is learning something new every day.</strong> 📖</li>
+                </ul>
+            </div>
+
+            <!-- I can’t imagine my life without... -->
+            <div class="phrase-card">
+                <div class="template">6️⃣ I can’t imagine my life without...</div>
+                <div class="translation">ما أقدرش أتخيل حياتي من غير</div>
+                <ul>
+                    <li><strong>I can’t imagine my life without coffee.</strong> ☕</li>
+                    <li><strong>I can’t imagine my life without my phone.</strong> 📱</li>
+                    <li><strong>I can’t imagine my life without traveling.</strong> 🌍</li>
+                    <li><strong>I can’t imagine my life without good friends.</strong> 🤗</li>
+                </ul>
+            </div>
+
+            <!-- One thing I always make time for is... -->
+            <div class="phrase-card">
+                <div class="template">7️⃣ One thing I always make time for is...</div>
+                <div class="translation">حاجة دايمًا بفضل أعملها</div>
+                <ul>
+                    <li><strong>One thing I always make time for is reading.</strong> 📖</li>
+                    <li><strong>One thing I always make time for is exercise.</strong> 🏋️‍♂️</li>
+                    <li><strong>One thing I always make time for is family.</strong> 👨‍👩‍👧</li>
+                    <li><strong>One thing I always make time for is coffee in the morning.</strong> ☕</li>
+                </ul>
+            </div>
+
+            <!-- I’m not really into... -->
+            <div class="phrase-card">
+                <div class="template">8️⃣ I’m not really into...</div>
+                <div class="translation">مش بحب أوي</div>
+                <ul>
+                    <li><strong>I’m not really into horror movies.</strong> 🎬</li>
+                    <li><strong>I’m not really into spicy food.</strong> 🌶️</li>
+                    <li><strong>I’m not really into big parties.</strong> 🎉</li>
+                    <li><strong>I’m not really into shopping.</strong> 🛍️</li>
+                </ul>
+            </div>
+
+            <!-- I’d rather... -->
+            <div class="phrase-card">
+                <div class="template">9️⃣ I’d rather...</div>
+                <div class="translation">أفضل أن</div>
+                <ul>
+                    <li><strong>I’d rather stay home tonight.</strong> 🏠</li>
+                    <li><strong>I’d rather take the train than the bus.</strong> 🚆</li>
+                    <li><strong>I’d rather read a book than watch TV.</strong> 📚</li>
+                    <li><strong>I’d rather go for a walk.</strong> 🚶‍♂️</li>
+                </ul>
+            </div>
+
+            <!-- For me, it’s all about... -->
+            <div class="phrase-card">
+                <div class="template">🔟 For me, it’s all about...</div>
+                <div class="translation">بالنسبة لي، الموضوع كله عن</div>
+                <ul>
+                    <li><strong>For me, it’s all about enjoying the moment.</strong> 🌅</li>
+                    <li><strong>For me, it’s all about good company.</strong> 🤝</li>
+                    <li><strong>For me, it’s all about learning new things.</strong> 📖</li>
+                    <li><strong>For me, it’s all about staying positive.</strong> 😊</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="phrase-section">
+            <h2>🗣️ تمبلتس الحكي اليومي (Story Mode)</h2>
+
+            <!-- Morning -->
+            <div class="phrase-card">
+                <div class="template">🌅 الصبح</div>
+                <table>
+                    <tr>
+                        <th>القالب</th>
+                        <th>الترجمة</th>
+                        <th>مثال</th>
+                    </tr>
+                    <tr>
+                        <td>So, this morning I woke up and…</td>
+                        <td>فـ النهارده الصبح صحيت و…</td>
+                        <td>So, this morning I woke up and checked my phone.</td>
+                    </tr>
+                    <tr>
+                        <td>The first thing I did was…</td>
+                        <td>أول حاجة عملتها كانت…</td>
+                        <td>The first thing I did was make coffee.</td>
+                    </tr>
+                    <tr>
+                        <td>I usually start my day by…</td>
+                        <td>عادة ببدأ يومي بـ…</td>
+                        <td>I usually start my day by stretching.</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Breakfast -->
+            <div class="phrase-card">
+                <div class="template">🍳 الفطار والاستعداد</div>
+                <table>
+                    <tr>
+                        <th>القالب</th>
+                        <th>الترجمة</th>
+                        <th>مثال</th>
+                    </tr>
+                    <tr>
+                        <td>Then I went ahead and…</td>
+                        <td>بعدين عملت و…</td>
+                        <td>Then I went ahead and made breakfast.</td>
+                    </tr>
+                    <tr>
+                        <td>I felt like…</td>
+                        <td>كان نفسي في…</td>
+                        <td>I felt like having some toast.</td>
+                    </tr>
+                    <tr>
+                        <td>While I was getting ready…</td>
+                        <td>وأنا بجهز…</td>
+                        <td>While I was getting ready, I listened to music.</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Work/School -->
+            <div class="phrase-card">
+                <div class="template">🏢 الشغل أو الدراسة</div>
+                <table>
+                    <tr>
+                        <th>القالب</th>
+                        <th>الترجمة</th>
+                        <th>مثال</th>
+                    </tr>
+                    <tr>
+                        <td>After that, I headed to…</td>
+                        <td>بعد كده رُحت…</td>
+                        <td>After that, I headed to work.</td>
+                    </tr>
+                    <tr>
+                        <td>I spent most of my morning…</td>
+                        <td>قضيت معظم الصبح…</td>
+                        <td>I spent most of my morning replying to emails.</td>
+                    </tr>
+                    <tr>
+                        <td>Around midday, I…</td>
+                        <td>حوالي نص النهار، أنا…</td>
+                        <td>Around midday, I had lunch.</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Afternoon -->
+            <div class="phrase-card">
+                <div class="template">🌇 بعد الظهر</div>
+                <table>
+                    <tr>
+                        <th>القالب</th>
+                        <th>الترجمة</th>
+                        <th>مثال</th>
+                    </tr>
+                    <tr>
+                        <td>Later in the afternoon, I…</td>
+                        <td>بعدين في العصر…</td>
+                        <td>Later in the afternoon, I had a meeting.</td>
+                    </tr>
+                    <tr>
+                        <td>I was thinking about…</td>
+                        <td>كنت بفكر في…</td>
+                        <td>I was thinking about going for a walk.</td>
+                    </tr>
+                    <tr>
+                        <td>Instead, I decided to…</td>
+                        <td>بدل كده قررت…</td>
+                        <td>Instead, I decided to stay home.</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Evening -->
+            <div class="phrase-card">
+                <div class="template">🌙 نهاية اليوم</div>
+                <table>
+                    <tr>
+                        <th>القالب</th>
+                        <th>الترجمة</th>
+                        <th>مثال</th>
+                    </tr>
+                    <tr>
+                        <td>When I got home, I…</td>
+                        <td>لما رجعت البيت…</td>
+                        <td>When I got home, I made dinner.</td>
+                    </tr>
+                    <tr>
+                        <td>I usually end my day by…</td>
+                        <td>غالبًا بخلص يومي بـ…</td>
+                        <td>I usually end my day by reading.</td>
+                    </tr>
+                    <tr>
+                        <td>Before going to bed, I…</td>
+                        <td>قبل ما أنام…</td>
+                        <td>Before going to bed, I brushed my teeth.</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="phrase-section">
+            <h2>📚 كلمات تساعدك توصف أحداثك اليومية</h2>
+
+            <!-- Common Verbs -->
+            <div class="phrase-card">
+                <div class="template">أفعال شائعة:</div>
+                <ul>
+                    <li>wake up (أصحى)</li>
+                    <li>get up (أقوم من السرير)</li>
+                    <li>make breakfast (أعمل فطار)</li>
+                    <li>check my phone (أبص على الموبايل)</li>
+                    <li>brush my teeth (أفرّش سناني)</li>
+                    <li>take a shower (أستحمى)</li>
+                    <li>get dressed (ألبس هدومي)</li>
+                    <li>go to work/school (أروح الشغل/المدرسة)</li>
+                    <li>have lunch (أتغدى)</li>
+                    <li>take a nap (أخد قيلولة)</li>
+                    <li>cook dinner (أطبخ عشاء)</li>
+                    <li>watch TV (أتفرج على التلفزيون)</li>
+                    <li>go for a walk (أتمشى)</li>
+                    <li>go to bed (أروح أنام)</li>
+                </ul>
+            </div>
+
+            <!-- Time Words -->
+            <div class="phrase-card">
+                <div class="template">كلمات وقت:</div>
+                <ul>
+                    <li>in the morning (في الصبح)</li>
+                    <li>in the afternoon (بعد الظهر)</li>
+                    <li>in the evening (في المساء)</li>
+                    <li>at night (بالليل)</li>
+                    <li>around midday (حوالي نص النهار)</li>
+                    <li>later on (بعدين)</li>
+                    <li>finally (وأخيرًا)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeToggle = document.getElementById('themeToggle');
+            const searchInput = document.getElementById('search');
+            const phraseCards = document.querySelectorAll('.phrase-card');
+            const body = document.body;
+
+            // Check for saved theme preference or use preferred color scheme
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                body.setAttribute('data-theme', 'dark');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i> الوضع الفاتح';
+            }
+
+            // Toggle theme
+            themeToggle.addEventListener('click', function() {
+                const currentTheme = body.getAttribute('data-theme');
+                if (currentTheme === 'dark') {
+                    body.removeAttribute('data-theme');
+                    themeToggle.innerHTML = '<i class="fas fa-moon"></i> الوضع المظلم';
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    body.setAttribute('data-theme', 'dark');
+                    themeToggle.innerHTML = '<i class="fas fa-sun"></i> الوضع الفاتح';
+                    localStorage.setItem('theme', 'dark');
+                }
+            });
+
+            // Search functionality
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+
+                phraseCards.forEach(card => {
+                    const template = card.querySelector('.template') ? card.querySelector('.template').textContent.toLowerCase() : '';
+                    const translation = card.querySelector('.translation') ? card.querySelector('.translation').textContent.toLowerCase() : '';
+                    const example = card.querySelector('.example') ? card.querySelector('.example').textContent.toLowerCase() : '';
+                    const tableText = card.querySelector('table') ? card.querySelector('table').textContent.toLowerCase() : '';
+
+                    if (template.includes(searchTerm) || translation.includes(searchTerm) || example.includes(searchTerm) || tableText.includes(searchTerm)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+
+            // Card click effect
+            phraseCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    this.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+                    setTimeout(() => {
+                        this.style.backgroundColor = '';
+                    }, 500);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
